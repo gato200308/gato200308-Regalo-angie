@@ -1,0 +1,260 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: #e74c3c;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.subtitle span {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.heart-decoration {
+    font-size: 2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Calendar */
+.calendar-container {
+    margin-bottom: 40px;
+}
+
+.calendar-title {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calendar-day {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+}
+
+.calendar-day:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: #e74c3c;
+}
+
+.calendar-day.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(200, 200, 200, 0.8);
+    position: relative;
+}
+
+.calendar-day.locked::after {
+    content: "🔒";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1rem;
+}
+
+.calendar-day.available {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    border-color: #e74c3c;
+}
+
+.calendar-day.selected {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    transform: scale(1.05);
+}
+
+.day-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.day-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.calendar-day.selected .day-date {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Message Container */
+.message-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+.message-content h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.message-content div {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.message-footer {
+    border-top: 2px solid #f0f0f0;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.date-display {
+    font-style: italic;
+    color: #888;
+    font-size: 1rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: white;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    
+    .calendar-day {
+        padding: 15px 10px;
+    }
+    
+    .message-container {
+        padding: 20px;
+    }
+    
+    .message-content h3 {
+        font-size: 2rem;
+    }
+    
+    .message-content p {
+        font-size: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Special effects for unlocked days */
+.calendar-day.available::before {
+    content: "💌";
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.5rem;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+} 
