@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const calendarGrid = document.getElementById("calendarGrid");
     const messageTitle = document.getElementById("messageTitle");
@@ -7,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const dateDisplay = document.getElementById("dateDisplay");
 
     const cartas = [
+        { fecha: "2025-08-04", archivo: "carta11.html" },
+        { fecha: "2025-08-05", archivo: "carta12.html", esAniversario: true },
         { fecha: "2025-08-22", archivo: "carta1.html" },
         { fecha: "2025-08-23", archivo: "carta2.html" },
         { fecha: "2025-08-24", archivo: "carta3.html" },
@@ -21,16 +21,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let selectedDay = null;
 
-    cartas.forEach((carta, index) => {
+    cartas.forEach((carta) => {
         const fechaCarta = new Date(carta.fecha);
         fechaCarta.setHours(0, 0, 0, 0);
+
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
 
         const dayDiv = document.createElement("div");
         dayDiv.className = "calendar-day";
         dayDiv.innerHTML = `
-            <div class="day-number">${fechaCarta.getDate()} ago</div>
+            <div class="day-number">
+                ${carta.esAniversario ? "💞 " : ""}${fechaCarta.getDate()} ago
+            </div>
             <div class="day-date">${carta.fecha}</div>
         `;
 
@@ -43,15 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
         dayDiv.addEventListener("click", () => {
             const ahora = new Date();
 
-            // Deselecciona el anterior
             if (selectedDay) selectedDay.classList.remove("selected");
             selectedDay = dayDiv;
             selectedDay.classList.add("selected");
 
             if (ahora < fechaCarta) {
-                clearInterval(window.countdownInterval); // detener anterior
+                clearInterval(window.countdownInterval);
                 messageTitle.textContent = "⏳ Aún no es tiempo...";
-                updateCountdown(carta.fecha); // primera vez
+                updateCountdown(carta.fecha);
                 window.countdownInterval = setInterval(() => {
                     updateCountdown(carta.fecha);
                 }, 1000);
@@ -60,7 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch(`cartas/${carta.archivo}`)
                     .then(response => response.text())
                     .then(data => {
-                        messageTitle.textContent = `💌 Carta del ${fechaCarta.getDate()} de agosto`;
+                        const dia = fechaCarta.getDate();
+                        const mensajeBase = `💌 Carta del ${dia} de agosto`;
+                        const titulo = carta.esAniversario ? `💞 Aniversario - ${mensajeBase}` : mensajeBase;
+
+                        messageTitle.textContent = titulo;
                         messageText.innerHTML = data;
                         dateDisplay.textContent = `📅 ${carta.fecha}`;
                     })
