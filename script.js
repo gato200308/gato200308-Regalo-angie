@@ -17,16 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
         { fecha: "2025-08-29", archivo: "carta8.html" },
         { fecha: "2025-08-30", archivo: "carta9.html" },
         { fecha: "2025-08-31", archivo: "carta10.html" },
+        
     ];
 
     let selectedDay = null;
 
     cartas.forEach((carta) => {
-        const fechaCarta = new Date(carta.fecha);
-        fechaCarta.setHours(0, 0, 0, 0);
-
+        const fechaCarta = new Date(carta.fecha + "T06:00:00");
         const hoy = new Date();
-        hoy.setHours(0, 0, 0, 0);
 
         const dayDiv = document.createElement("div");
         dayDiv.className = "calendar-day";
@@ -81,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function updateCountdown(fechaStr) {
-        const objetivo = new Date(fechaStr + "T00:00:00");
+        const objetivo = new Date(fechaStr + "T06:00:00");
         const ahora = new Date();
         const diferencia = objetivo - ahora;
 
@@ -99,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const segundos = Math.floor((diferencia / 1000) % 60);
 
         messageText.innerHTML = `
-            Esta carta se desbloqueará el <strong>${fechaStr}</strong><br>
+            Esta carta se desbloqueará el <strong>${fechaStr}</strong> a las <strong>6:00 AM</strong><br>
             Faltan: <strong>${dias}d ${horas}h ${minutos}m ${segundos}s</strong>
         `;
         dateDisplay.textContent = "";
